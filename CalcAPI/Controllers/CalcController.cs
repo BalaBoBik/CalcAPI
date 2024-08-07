@@ -43,10 +43,10 @@ namespace CalcAPI.Controllers
             return Math.Pow(a, 1/b);
         }
         [HttpGet("complex/")]
-        public async Task<List<string>> GetComplexExpressionResult([FromQuery]string expression)
+        public async Task<double> GetComplexExpressionResult([FromQuery]string expression)
         {
             ComplexExpression complexExpression = new ComplexExpression(expression);
-            return complexExpression.GetParsedExpression();
+            return complexExpression.CalculateResult();
         }
     }
 }
