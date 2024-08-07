@@ -83,12 +83,12 @@ namespace CalcAPI.Data
                         }
                     }
                 }
-                if (!numberExpected)
+                else
                 {
                     if (item == ")")
                         numberExpected = false;
                     // Проверка на Математический знак
-                    if (allowedMathematicalSigns.Contains(item)) 
+                    else if (allowedMathematicalSigns.Contains(item)) 
                         numberExpected = true;
                     else
                         throw new Exception($"Ошибка записи : В элементе |{item}| Ожидается математический знак или закрывающаяся скобка");
