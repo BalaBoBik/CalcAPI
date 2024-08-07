@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Newtonsoft.Json.Linq;
+using System.Text;
 namespace CalcAPI.Data
 {
     public class ComplexExpression
@@ -66,13 +67,21 @@ namespace CalcAPI.Data
             {
                 if (numberExpected)
                 {
-                    if (item == "(")            
+                    if (item == "(")
                         numberExpected = true;
-                    //Провека на записи числа 
-                    if (item.All(char.IsDigit)) //!!! НУЖНО ПЕРЕДЕЛАТЬ (Не работает с десятичными числами)
-                        numberExpected = false;
                     else
-                        throw new Exception($"Ошибка записи : В элементе |{item}| Ожидается число или открывающаяся скобка");
+                    {
+                        //Провека на записи числа 
+                        try
+                        {
+                            Convert.ToDouble(item);
+                            numberExpected = false;
+                        }
+                        catch (InvalidCastException)
+                        {
+                            throw new Exception($"Ошибка записи : В элементе |{item}| Ожидается число или открывающаяся скобка");
+                        }
+                    }
                 }
                 if (!numberExpected)
                 {
